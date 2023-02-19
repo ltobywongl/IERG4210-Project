@@ -105,3 +105,96 @@ a {
     color-scheme: dark;
   }
 }
+
+.App {
+  text-align: center;
+}
+
+.body { 
+  background: url(/img/cream_dust.png) repeat 0 0;
+  min-height: 100vh;
+}
+
+.App-logo {
+  height: 40vmin;
+  pointer-events: none;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .App-logo {
+    animation: App-logo-spin infinite 20s linear;
+  }
+}
+
+.App-link {
+  color: #61dafb;
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: white;
+}
+
+.h1 {
+  font-family: 'Corben', Georgia, Times, serif;
+  text-align: center;
+  padding: 1%;
+}
+
+.h2, .h3, .h4, .h5, .h6 {
+  font-family: 'Corben', Georgia, Times, serif;
+}
+.p, .div {
+  font-family: 'Nobile', Helvetica, Arial, sans-serif;
+}
+
+.page {
+  padding-left: 5%;
+  padding-right: 5%;
+}
+
+.navbar {
+  background-color: #98ccc4;
+  color: #111;
+  box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
+}
+
+.hierarchicalNav {
+  display: inline-flex;
+  padding-top: 1%;
+}
+
+.underline {
+  text-decoration: underline !important;
+}
+
+.price {
+  color: red;
+  font-size: 24px;
+  font-weight: 500;
+}
+
+.hover-menu {
+  display: none;
+  position: absolute;
+  text-align: center !important;
+}
+
+.hover-display:hover .hover-menu{
+  display: block;
+}
+
+@keyframes App-logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
