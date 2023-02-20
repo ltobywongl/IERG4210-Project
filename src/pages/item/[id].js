@@ -2,7 +2,7 @@ import Navigation from '@/Fragments/navigation'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Button, Col, Container, Row } from "react-bootstrap"
-import Card from 'react-bootstrap/Card'
+import Card from 'react-bootstrap/card'
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000';
 

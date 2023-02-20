@@ -1,7 +1,7 @@
 import Head from 'next/head'
 import Link from 'next/link'
 import { Inter } from '@next/font/google'
-import CardGroup from 'react-bootstrap/CardGroup';
+import CardGroup from 'react-bootstrap/cardGroup';
 import Navigation from '@/Fragments/navigation';
 import ItemCard from '@/Fragments/itemcard';
 
