@@ -1,15 +1,9 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
+import Button from 'react-bootstrap/button';
+import Card from 'react-bootstrap/card';
 
 export default function ItemCard({ pid }) {
-    function toBase64(arr) {
-        return btoa(
-            arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
-        );
-    }
-
     const [data, setData] = useState(null)
     const [isLoading, setLoading] = useState(false)
 
@@ -56,17 +50,17 @@ export default function ItemCard({ pid }) {
         return (
             <Card>
                 <Link href={"/item/"+pid} /* onClick={() => setItem(["cate-fnb", "Apple", require("./img/apple.jpg")])}*/>
-                    <Card.Img variant="top" src={`data:image/png;base64,${toBase64(data.image.data)}`} />
+                    <Card.Img variant="top" src={`${data.image}`} />
                 </Link>
                 <Card.Body>
                     <Link href={"/item/"+pid} className="nav-link" /* onClick={() => setItem(["cate-fnb", "Apple", require("./img/apple.jpg")])}*/>
-                        <Card.Title>Apple</Card.Title>
+                        <Card.Title>{data.name}</Card.Title>
                     </Link>
                     <Card.Text>
-                        Fresh and crispy apple.
+                        {data.description}
                     </Card.Text>
                     <Card.Text className="price">
-                        $10
+                        {"$"+data.price}
                     </Card.Text>
                     <Button variant="primary">Add to Cart</Button>
                 </Card.Body>

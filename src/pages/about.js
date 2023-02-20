@@ -16,7 +16,7 @@ export default function About() {
                 <div className="hierarchicalNav">
                     <Link className="nav-link underline" href="/">Home</Link>
                     {">"}
-                    <Link className="nav-link underline" href="/about">about</Link>
+                    <Link className="nav-link underline" href="/about">About</Link>
                 </div>
                 <h2><b>Shopping Site</b></h2>
                 <h3>by 1155159363 Wong Hong To</h3>

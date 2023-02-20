@@ -1,7 +1,5 @@
 import Head from 'next/head'
 import Link from 'next/link'
-import Button from 'react-bootstrap/Button';
-import Card from 'react-bootstrap/Card';
 import Carousel from "react-bootstrap/Carousel";
 import CardGroup from 'react-bootstrap/CardGroup';
 import { Inter } from '@next/font/google'
@@ -27,26 +25,26 @@ export default function Home() {
           </div>
           <h1 className='h1'><b>Welcome to the site!</b></h1>
           <h3 className='h3'>Featured</h3>
-          <Carousel indicators={false} interval={3000} variant="dark">
+          <Carousel indicators={false} interval={5000} variant="dark">
             <Carousel.Item>
               <CardGroup>
                 <ItemCard pid="1" />
-                <ItemCard pid="1" />
-                <ItemCard pid="1" />
-              </CardGroup>
-            </Carousel.Item>
-            <Carousel.Item>
-              <CardGroup>
-                <ItemCard pid="3" />
-                <ItemCard pid="3" />
+                <ItemCard pid="2" />
                 <ItemCard pid="3" />
               </CardGroup>
             </Carousel.Item>
             <Carousel.Item>
               <CardGroup>
+                <ItemCard pid="2" />
+                <ItemCard pid="3" />
                 <ItemCard pid="4" />
+              </CardGroup>
+            </Carousel.Item>
+            <Carousel.Item>
+              <CardGroup>
+                <ItemCard pid="3" />
                 <ItemCard pid="4" />
-                <ItemCard pid="4" />
+                <ItemCard pid="1" />
               </CardGroup>
             </Carousel.Item>
           </Carousel>

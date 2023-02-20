@@ -22,16 +22,19 @@ export default function Navigation() {
                             <Link className="dropdown-item" href="/cate-h">Houseware</Link>
                         </NavDropdown>
                     </Nav>
-                        <span className="hover-display nav-link">
-                            Shopping List
-                            <div className="hover-menu dropdown-menu">
-                                <span className="dropdown-item">Item A $10</span>
-                                <span className="dropdown-item">Item B $10</span>
-                                <span className="dropdown-item">Item C $10</span>
-                                <Button variant="warning">Checkout</Button>
-                            </div>
-                        </span>
-                        
+                    <span className="m-2 nav-link">
+                        <Link className="nav-link" href="/admin">Admin</Link>
+                    </span>
+                    <span className="hover-display nav-link">
+                        Shopping List
+                        <div className="hover-menu dropdown-menu">
+                            <span className="dropdown-item">Item A $10</span>
+                            <span className="dropdown-item">Item B $10</span>
+                            <span className="dropdown-item">Item C $10</span>
+                            <Button variant="warning">Checkout</Button>
+                        </div>
+                    </span>
+
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -6,12 +6,6 @@ import Card from 'react-bootstrap/Card'
 import axios from 'axios'
 axios.defaults.baseURL = 'http://localhost:3000';
 
-//data.id
-//data.name
-//data.cate
-//data.price
-//data.desc
-
 const dict = {
     "cate-pcnh": "Personal Care & Health",
     "cate-fnb": "Food & Beverages",
@@ -26,13 +20,8 @@ const CidToCate = {
 }
 
 function Item({ item }) {
-    function toBase64(arr) {
-        return btoa(
-            arr.reduce((data, byte) => data + String.fromCharCode(byte), '')
-        );
-    }
     // Render the page using the data
-    if (item.image === undefined) item = { id: '-1', name: 'Not Found', cate: 'cate-notfound', price: '0', desc: 'Not found', image: { data: [] } };
+    if (item.image === undefined) item = { id: '-1', name: 'Not Found', cate: 'cate-notfound', price: '0', desc: 'Not found', image: ""};
     return (
         <>
             <Head>
@@ -54,13 +43,13 @@ function Item({ item }) {
                     <Row>
                         <Col>
                             <Card>
-                                <Card.Img variant="top" src={`data:image/png;base64,${toBase64(item.image.data)}`} />
+                                <Card.Img variant="top" src={`${item.image}`} />
                             </Card>
                         </Col>
                         <Col>
                             <h2>{item.name}</h2>
                             <h3>In Stock</h3>
-                            <p>{item.desc}</p>
+                            <p>{item.description}</p>
                             <div className="price"><b>{'$' + item.price}</b></div>
                             <div className="Row">
                                 <input type="number" defaultValue={1} />
