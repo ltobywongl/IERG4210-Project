@@ -8,7 +8,7 @@ import axios from 'axios'
 import Row from 'react-bootstrap/Row';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:80';
 
 function Item({ item }) {
     const router = useRouter()

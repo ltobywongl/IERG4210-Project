@@ -4,6 +4,8 @@ import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
 
 export default function ItemCard({ pid }) {
+    const [data, setData] = useState(null)
+    const [isLoading, setLoading] = useState(false)
     useEffect(() => {
         if (!isNaN(pid)) {
             setLoading(true)
@@ -15,8 +17,6 @@ export default function ItemCard({ pid }) {
                 })
         }
     }, [])
-    const [data, setData] = useState(null)
-    const [isLoading, setLoading] = useState(false)
 
     if (!isNaN(pid)) {
         if (isLoading) return (

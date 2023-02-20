@@ -4,7 +4,7 @@ import Head from 'next/head'
 import { Button, Col, Container, Row } from "react-bootstrap"
 import Card from 'react-bootstrap/Card'
 import axios from 'axios'
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:80';
 
 const dict = {
     "cate-pcnh": "Personal Care & Health",

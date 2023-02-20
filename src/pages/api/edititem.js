@@ -3,7 +3,7 @@ import excuteQuery from "@/lib/db"
 export default async function handler(req, res) {
     const form = req.body
     if (typeof form == "object" && Object.keys(form).length == 6 && !isNaN(form.cid) && !isNaN(form.pid) && !isNaN(form.price) && form.image !== undefined && form.image !== "") {
-        console.log(form)
+        //console.log(form)
         try {
             const result = await excuteQuery({
                 query: "UPDATE products SET cid = ?, name = ?, price = ?, description = ?, image = ? WHERE pid = ?;",

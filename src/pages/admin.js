@@ -7,7 +7,7 @@ import Table from 'react-bootstrap/Table';
 import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Image from 'react-bootstrap/Image';
-axios.defaults.baseURL = 'http://localhost:3000';
+axios.defaults.baseURL = 'http://localhost:80';
 
 const inter = Inter({ subsets: ['latin'] })
 

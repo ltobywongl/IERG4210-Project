@@ -17,9 +17,9 @@ export default function Navigation() {
                         <Link className="nav-link" href="/">Home</Link>
                         <Link className="nav-link" href="/about">About</Link>
                         <NavDropdown title="Categories" id="collasible-nav-dropdown">
-                            <Link className="dropdown-item" href="/cate-fnb">Food & Beverages</Link>
-                            <Link className="dropdown-item" href="/cate-pcnh">Personal Care & Health</Link>
-                            <Link className="dropdown-item" href="/cate-h">Houseware</Link>
+                            <Link className="dropdown-item" href="/cate/1">Personal Care & Health</Link>
+                            <Link className="dropdown-item" href="/cate/2">Food & Beverages</Link>
+                            <Link className="dropdown-item" href="/cate/3">Houseware</Link>
                         </NavDropdown>
                     </Nav>
                     <span className="m-2 nav-link">
