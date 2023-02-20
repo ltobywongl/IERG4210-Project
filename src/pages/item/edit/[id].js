@@ -11,9 +11,9 @@ import { useState } from 'react';
 axios.defaults.baseURL = 'http://localhost:3000';
 
 function Item({ item }) {
-    if (item === undefined || item.image === undefined) return;
     const router = useRouter()
     const [newimage, setNewimage] = useState(null)
+    if (item === undefined || item.image === undefined) return;
 
     const handleDelete = async (event) => {
         event.preventDefault()

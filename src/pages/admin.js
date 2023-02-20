@@ -12,8 +12,8 @@ axios.defaults.baseURL = 'http://localhost:3000';
 const inter = Inter({ subsets: ['latin'] })
 
 function Admin({ items }) {
-    if (items === undefined) return
     const router = useRouter()
+    if (items === undefined) return
 
     const handleNewProd = async (event) => {
         event.preventDefault()

@@ -4,11 +4,8 @@ import Button from 'react-bootstrap/button';
 import Card from 'react-bootstrap/card';
 
 export default function ItemCard({ pid }) {
-    const [data, setData] = useState(null)
-    const [isLoading, setLoading] = useState(false)
-
-    if (!isNaN(pid)) {
-        useEffect(() => {
+    useEffect(() => {
+        if (!isNaN(pid)) {
             setLoading(true)
             fetch(`/api/getitem/${pid}`)
                 .then((res) => res.json())
@@ -16,8 +13,12 @@ export default function ItemCard({ pid }) {
                     setData(data)
                     setLoading(false)
                 })
-        }, [])
+        }
+    }, [])
+    const [data, setData] = useState(null)
+    const [isLoading, setLoading] = useState(false)
 
+    if (!isNaN(pid)) {
         if (isLoading) return (
             <Card>
                 <Card.Body>
@@ -49,18 +50,18 @@ export default function ItemCard({ pid }) {
 
         return (
             <Card>
-                <Link href={"/item/"+pid} /* onClick={() => setItem(["cate-fnb", "Apple", require("./img/apple.jpg")])}*/>
+                <Link href={"/item/" + pid} /* onClick={() => setItem(["cate-fnb", "Apple", require("./img/apple.jpg")])}*/>
                     <Card.Img variant="top" src={`${data.image}`} />
                 </Link>
                 <Card.Body>
-                    <Link href={"/item/"+pid} className="nav-link" /* onClick={() => setItem(["cate-fnb", "Apple", require("./img/apple.jpg")])}*/>
+                    <Link href={"/item/" + pid} className="nav-link" /* onClick={() => setItem(["cate-fnb", "Apple", require("./img/apple.jpg")])}*/>
                         <Card.Title>{data.name}</Card.Title>
                     </Link>
                     <Card.Text>
                         {data.description}
                     </Card.Text>
                     <Card.Text className="price">
-                        {"$"+data.price}
+                        {"$" + data.price}
                     </Card.Text>
                     <Button variant="primary">Add to Cart</Button>
                 </Card.Body>
