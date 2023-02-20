@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import Button from 'react-bootstrap/button';
-import Card from 'react-bootstrap/card';
+import Button from 'react-bootstrap/Button';
+import Card from 'react-bootstrap/Card';
 
 export default function ItemCard({ pid }) {
     useEffect(() => {

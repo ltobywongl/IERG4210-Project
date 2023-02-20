@@ -3,7 +3,7 @@ import Link from 'next/link'
 import Head from 'next/head'
 import Table from "react-bootstrap/table"
 import Image from 'next/image';
-import Button from 'react-bootstrap/button';
+import Button from 'react-bootstrap/Button';
 import axios from 'axios'
 import Row from 'react-bootstrap/Row';
 import { useRouter } from 'next/router'

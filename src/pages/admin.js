@@ -3,10 +3,10 @@ import Link from 'next/link'
 import { Inter } from '@next/font/google'
 import { useRouter } from 'next/router'
 import Navigation from '@/Fragments/navigation';
-import Table from 'react-bootstrap/table';
-import Button from 'react-bootstrap/button';
+import Table from 'react-bootstrap/Table';
+import Button from 'react-bootstrap/Button';
 import axios from 'axios';
-import Image from 'react-bootstrap/image';
+import Image from 'react-bootstrap/Image';
 axios.defaults.baseURL = 'http://localhost:3000';
 
 const inter = Inter({ subsets: ['latin'] })
