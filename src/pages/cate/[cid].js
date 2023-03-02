@@ -21,6 +21,7 @@ const CidToCate = {
 }
 
 function Cate({ data }) {
+
     // Render the page using the data
     if (data.items === undefined) return
     const items = data.items
@@ -77,7 +78,8 @@ export async function getServerSideProps(context) {
         const data = { items: [{}], key: 0 }
         return {
             props: {
-                data
+                data,
+                key: cid
             },
         }
     }
@@ -86,7 +88,8 @@ export async function getServerSideProps(context) {
         const data = { items: response.data, key: cid }
         return {
             props: {
-                data
+                data,
+                key: cid
             },
         }
     } catch (e) {
@@ -94,7 +97,8 @@ export async function getServerSideProps(context) {
         const data = { items: [{}], key: 0 }
         return {
             props: {
-                data
+                data,
+                key: cid
             }
         }
     }
