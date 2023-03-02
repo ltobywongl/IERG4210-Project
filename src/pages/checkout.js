@@ -39,10 +39,10 @@ export default function CartList() {
                     </div>
                     <h1 className='h1'><b>Checkout</b></h1>
                     {
-                        itemList.items.map((item) => {
+                        itemList.items.map((item, key) => {
                             totalAmount += item.price * item.count
                             return (
-                                <div className="checkout">{item.name} | ${item.price} | x{item.count}</div>
+                                <div className="checkout" key={"checkout" + key}>{item.name} | ${item.price} | x{item.count}</div>
                             )
                         })
                     }
