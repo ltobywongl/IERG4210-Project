@@ -1,9 +1,11 @@
+import { useState, useContext } from 'react'
 import Navigation from '@/Fragments/navigation'
 import Link from 'next/link'
 import Head from 'next/head'
 import { Button, Col, Container, Row } from "react-bootstrap"
 import Card from 'react-bootstrap/Card'
 import axios from 'axios'
+import { itemListContext } from '@/lib/context'
 axios.defaults.baseURL = 'http://localhost:80';
 
 const dict = {
@@ -20,6 +22,27 @@ const CidToCate = {
 }
 
 function Item({ item }) {
+    const [count, setCount] = useState(1)
+    const { itemList, setItemList } = useContext(itemListContext)
+    const handleChange = (e) => {
+        setCount(e.target.value)
+    }
+    const addToCart = (newCartItemCount) => {
+        const saved = localStorage.getItem("cart")
+        let objSaved = JSON.parse(saved)
+        if (objSaved && objSaved.items) {
+            //Check if pid exist
+            let existed = false;
+            objSaved["items"].map((mapItem) => {
+                if (mapItem.id === item.pid) existed = true
+            })
+            if (!existed) objSaved["items"][objSaved["items"].length] = {"id": item.pid, "name": item.name, "count": newCartItemCount, "price": item.price};
+        } else {
+            objSaved = {"items": [{"id": item.pid, "name": item.name, "count": newCartItemCount, "price": item.price}]}
+        }
+        setItemList(objSaved)
+        localStorage.setItem("cart", JSON.stringify(objSaved))
+    }
     // Render the page using the data
     if (item.image === undefined) item = { id: '-1', name: 'Not Found', cate: 'cate-notfound', price: '0', desc: 'Not found', image: ""};
     return (
@@ -31,7 +54,7 @@ function Item({ item }) {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navigation />
-            <div className="page">
+            <div className="page body">
                 <div className="hierarchicalNav">
                     <Link className="nav-link underline" href="/">Home</Link>
                     {">"}
@@ -52,8 +75,8 @@ function Item({ item }) {
                             <p>{item.description}</p>
                             <div className="price"><b>{'$' + item.price}</b></div>
                             <div className="Row">
-                                <input type="number" defaultValue={1} />
-                                <Button className="ms-1" variant="warning">Add to cart</Button>
+                                <input className='number-input' type="number" onChange={handleChange} value={count} />
+                                <Button className='ms-1' variant="warning" onClick={() => addToCart(count)}>Add to Cart</Button>
                             </div>
                         </Col>
                     </Row>

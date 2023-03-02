@@ -1,11 +1,14 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import Link from 'next/link'
 import Button from 'react-bootstrap/Button';
 import Card from 'react-bootstrap/Card';
+import { itemListContext } from '@/lib/context';
 
 export default function ItemCard({ pid }) {
     const [data, setData] = useState(null)
+    const [count, setCount] = useState(1)
     const [isLoading, setLoading] = useState(false)
+    const { itemList, setItemList } = useContext(itemListContext)
     useEffect(() => {
         if (!isNaN(pid)) {
             setLoading(true)
@@ -17,6 +20,27 @@ export default function ItemCard({ pid }) {
                 })
         }
     }, [])
+
+    const addToCart = (newCartItemCount) => {
+        const saved = localStorage.getItem("cart")
+        let objSaved = JSON.parse(saved)
+        if (objSaved && objSaved.items) {
+            //Check if pid exist
+            let existed = false;
+            objSaved["items"].map((item) => {
+                if (item.id === pid) existed = true
+            })
+            if (!existed) objSaved["items"][objSaved["items"].length] = {"id": pid, "name": data.name, "count": newCartItemCount, "price": data.price};
+        } else {
+            objSaved = {"items": [{"id": pid, "name": data.name, "count": newCartItemCount, "price": data.price}]}
+        }
+        setItemList(objSaved)
+        localStorage.setItem("cart", JSON.stringify(objSaved))
+    }
+
+    const handleChange = (e) => {
+        setCount(e.target.value)
+    }
 
     if (!isNaN(pid)) {
         if (isLoading) return (
@@ -63,7 +87,8 @@ export default function ItemCard({ pid }) {
                     <Card.Text className="price">
                         {"$" + data.price}
                     </Card.Text>
-                    <Button variant="primary">Add to Cart</Button>
+                    <input className='number-input' type="number" onChange={handleChange} value={count} />
+                    <Button variant="primary" onClick={() => addToCart(count)}>Add to Cart</Button>
                 </Card.Body>
             </Card>
         )

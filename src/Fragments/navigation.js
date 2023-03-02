@@ -1,12 +1,12 @@
-import React from "react";
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link'
-import { Button } from "react-bootstrap";
+import CartList from "./cartlist";
 
-export default function Navigation() {
+export default function Navigation({ allowCart }) {
+    if (allowCart === undefined) allowCart = true;
     return (
         <Navbar collapseOnSelect expand="lg" sticky="top">
             <Container>
@@ -22,19 +22,22 @@ export default function Navigation() {
                             <Link className="dropdown-item" href="/cate/3">Houseware</Link>
                         </NavDropdown>
                     </Nav>
-                    <span className="m-2 nav-link">
-                        <Link className="nav-link" href="/admin">Admin</Link>
-                    </span>
-                    <span className="hover-display nav-link">
-                        Shopping List
-                        <div className="hover-menu dropdown-menu">
-                            <span className="dropdown-item">Item A $10</span>
-                            <span className="dropdown-item">Item B $10</span>
-                            <span className="dropdown-item">Item C $10</span>
-                            <Button variant="warning">Checkout</Button>
-                        </div>
-                    </span>
+                    <Navbar.Collapse className="justify-content-end">
+                        <Nav>
+                            <Link className="nav-link" href="/admin">Admin</Link>
+                            {
+                                (allowCart) ?
+                                    <Navbar.Text className="hover-display nav-link">
+                                        Shopping List
+                                        <div className="hover-menu dropdown-menu">
+                                            <CartList />
+                                        </div>
+                                    </Navbar.Text>
+                                    : null
+                            }
 
+                        </Nav>
+                    </Navbar.Collapse>
                 </Navbar.Collapse>
             </Container>
         </Navbar>

@@ -14,19 +14,20 @@ const dict = {
 }
 
 const CidToCate = {
+    0: 'cate-notfound',
     1: 'cate-pcnh',
     2: 'cate-fnb',
     3: 'cate-h'
 }
 
-function Cate({ items }) {
+function Cate({ data }) {
     // Render the page using the data
-    if (items === undefined) return
-
+    if (data.items === undefined) return
+    const items = data.items
     return (
         <>
             <Head>
-                <title>{`Shopping | ${dict[CidToCate[items[0].cid]]}`}</title>
+                <title>{`Shopping | ${dict[CidToCate[data.key]]}`}</title>
                 <meta name="description" content="For CUHK IERG4210, studentID: 1155159363" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
@@ -37,9 +38,9 @@ function Cate({ items }) {
                     <div className="hierarchicalNav">
                         <Link className="nav-link underline" href="/">Home</Link>
                         {">"}
-                        <span className="nav-link underline">{`${dict[CidToCate[items[0].cid]]}`}</span>
+                        <span className="nav-link underline">{`${dict[CidToCate[data.key]]}`}</span>
                     </div>
-                    <h1 className='h1'><b>{`${dict[CidToCate[items[0].cid]]}`}</b></h1>
+                    <h1 className='h1'><b>{`${dict[CidToCate[data.key]]}`}</b></h1>
                     {
                         (function () {
                             let rows = [];
@@ -48,7 +49,6 @@ function Cate({ items }) {
                                 let currentGroup = []
                                 for (let j = 0; j < 4 && i * 4 + j < len; j++) {
                                     currentGroup.push(items[i * 4 + j])
-                                    //console.log("item", items[i * 4 + j])
                                 }
                                 rows.push(
                                     <CardGroup key={"CardGroup" + i}>
@@ -73,19 +73,28 @@ function Cate({ items }) {
 
 export async function getServerSideProps(context) {
     const { cid } = context.query
-    try {
-        const response = await axios.get(`/api/getcateproducts/${cid}`)
+    if (cid > 3 || cid < 1) {
+        const data = { items: [{}], key: 0 }
         return {
             props: {
-                items: response.data,
-                key: response.data[0].cid
+                data
+            },
+        }
+    }
+    try {
+        const response = await axios.get(`/api/getcateproducts/${cid}`)
+        const data = { items: response.data, key: cid }
+        return {
+            props: {
+                data
             },
         }
     } catch (e) {
         console.log('warning getting api response:', e)
+        const data = { items: [{}], key: 0 }
         return {
             props: {
-                items: {}
+                data
             }
         }
     }

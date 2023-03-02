@@ -111,11 +111,16 @@
   }
 }
 
-.d-disabled{
+.number-input {
+  padding: 6px 0px;
+  margin-right: 6px;
+}
+
+.d-disabled {
   display: none !important;
 }
 
-.overlay{
+.overlay {
   display: flex;
   justify-content: center;
   text-align: center;
@@ -159,7 +164,7 @@ a {
 }
 
 .body {
-  background: url(/img/cream_dust.png) repeat 0 0;
+  background: url('/img/cream_dust.png') repeat 0 0;
   min-height: 100vh;
 }
 
@@ -187,6 +192,11 @@ a {
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+}
+
+.checkout {
+  font-family: 'Corben', Georgia, Times, serif;
+  text-align: center;
 }
 
 .h1 {
@@ -236,6 +246,12 @@ a {
 
 .underline {
   text-decoration: underline !important;
+}
+
+.dropdown-item {
+  border-bottom-style: groove !important;
+  border-color: rgb(30, 145, 101) !important;
+  border-width: 2px !important;
 }
 
 .price {

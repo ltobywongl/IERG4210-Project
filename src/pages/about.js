@@ -12,7 +12,7 @@ export default function About() {
                 <link rel="icon" href="/favicon.ico" />
             </Head>
             <Navigation />
-            <div className="page">
+            <div className="page body">
                 <div className="hierarchicalNav">
                     <Link className="nav-link underline" href="/">Home</Link>
                     {">"}
