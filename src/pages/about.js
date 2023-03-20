@@ -16,12 +16,12 @@ export default function About() {
                 <div className="hierarchicalNav">
                     <Link className="nav-link underline" href="/">Home</Link>
                     {">"}
-                    <Link className="nav-link underline" href="/about">About</Link>
+                    <span className="nav-link underline">About</span>
                 </div>
                 <h2><b>Shopping Site</b></h2>
-                <h3>by 1155159363 Wong Hong To</h3>
-                <h3>Built with React + Next.js</h3>
-                <h3>Phase 2</h3>
+                <h3>by 1155159363</h3>
+                <h3>Built with Next.js</h3>
+                <h3>Phase 4</h3>
             </div >
         </>
     )

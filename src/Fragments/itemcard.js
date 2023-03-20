@@ -22,6 +22,7 @@ export default function ItemCard({ pid }) {
     }, [])
 
     const addToCart = (newCartItemCount) => {
+        if (isNaN(newCartItemCount)) return false;
         const saved = localStorage.getItem("cart")
         let objSaved = JSON.parse(saved)
         if (objSaved && objSaved.items) {

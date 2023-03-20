@@ -4,8 +4,11 @@ import NavDropdown from 'react-bootstrap/NavDropdown';
 import Container from 'react-bootstrap/Container';
 import Link from 'next/link'
 import CartList from "./cartlist";
+import { useSession, signIn, signOut } from "next-auth/react"
+import { Niconne } from '@next/font/google';
 
 export default function Navigation({ allowCart }) {
+    const { data: session, status } = useSession()
     if (allowCart === undefined) allowCart = true;
     return (
         <Navbar collapseOnSelect expand="lg" sticky="top">
@@ -24,7 +27,18 @@ export default function Navigation({ allowCart }) {
                     </Nav>
                     <Navbar.Collapse className="justify-content-end">
                         <Nav>
-                            <Link className="nav-link" href="/admin">Admin</Link>
+                            {
+                                status === "authenticated" ?
+                                    <NavDropdown title={session.user.name} id="collasible-nav-dropdown">
+                                        <Link className="dropdown-item" href="/chpwd">Change Password</Link>
+                                    </NavDropdown> : null
+                            }
+                            {
+                                status === "authenticated" ? <span className='nav-link click' onClick={() => signOut()}>Sign out</span> : <span className='nav-link click' onClick={() => signIn('Email')}>Sign in</span>
+                            }
+                            {
+                                session?.user?.role === 'admin' ? <Link className="nav-link" href="/admin">Admin</Link> : null
+                            }
                             {
                                 (allowCart) ?
                                     <Navbar.Text className="hover-display nav-link">

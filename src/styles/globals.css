@@ -125,14 +125,14 @@
   justify-content: center;
   text-align: center;
   align-items: center;
-  opacity:0.8;
-  background-color:#ccc;
-  position:fixed;
-  width:100%;
-  height:100%;
-  top:0px;
-  left:0px;
-  z-index:1000;
+  opacity: 0.8;
+  background-color: #ccc;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0px;
+  left: 0px;
+  z-index: 1000;
 }
 
 html,
@@ -239,6 +239,10 @@ a {
   box-shadow: 0 4px 8px 0 rgb(0 0 0 / 20%), 0 6px 20px 0 rgb(0 0 0 / 19%);
 }
 
+.click {
+  cursor: pointer;
+}
+
 .hierarchicalNav {
   display: inline-flex;
   padding-top: 1%;
@@ -248,11 +252,11 @@ a {
   text-decoration: underline !important;
 }
 
-.dropdown-item {
+/* .dropdown-item {
   border-bottom-style: groove !important;
   border-color: rgb(30, 145, 101) !important;
   border-width: 2px !important;
-}
+} */
 
 .price {
   color: red;
@@ -268,6 +272,59 @@ a {
 
 .hover-display:hover .hover-menu {
   display: block;
+}
+
+label>span {
+  font-weight: 600;
+}
+
+input {
+  padding: 8px;
+  margin: 0.3rem 0 1rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.inputDiv {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  margin: auto;
+}
+
+.inputLabel {
+  font-size: 12px;
+  color: #555;
+  margin-bottom: 6px;
+  margin-top: 24px;
+}
+
+.submitButton {
+  width: 70%;
+  height: 40px;
+  margin: auto;
+  margin-top: 16px;
+  display: block;
+  color: #fff;
+  background-color: #065492;
+  border-color: #065492;
+  text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.12);
+  box-shadow: 0 2px 0 rgba(0, 0, 0, 0.035);
+  border-radius: 4px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.submitButton:disabled,
+button[disabled] {
+  border: 1px solid #cccccc;
+  background-color: #cccccc;
+  color: #666666;
+}
+
+.error {
+  color: brown;
+  margin: 1rem 0 0;
 }
 
 @keyframes App-logo-spin {

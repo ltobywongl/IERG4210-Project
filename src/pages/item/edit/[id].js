@@ -8,90 +8,101 @@ import axios from 'axios'
 import Row from 'react-bootstrap/Row';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
+import { useSession } from "next-auth/react"
 axios.defaults.baseURL = 'http://localhost:80';
 
 function Item({ item }) {
     const router = useRouter()
+    const { data: session, status } = useSession()
     const [newimage, setNewimage] = useState(null)
     if (item === undefined || item.image === undefined) return;
 
     const handleDelete = async (event) => {
         event.preventDefault()
-        if (!confirm("Delete the product?")) {
-            return;
+        if (status === "authenticated" && session.user.role === "admin") {
+            if (!confirm("Delete the product?")) {
+                return;
+            }
+            document.getElementById('loading').className = "overlay"
+            const data = {
+                pid: item.pid,
+            }
+            const JSONdata = JSON.stringify(data)
+            const options = {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSONdata,
+            }
+            const response = await fetch('/api/deleteitem', options)
+            const result = await response.json()
+            document.getElementById('loading').className = "d-disabled overlay"
+            alert(`Query: ${result.data}`)
+            router.push({
+                pathname: '/admin',
+            })
+        } else {
+            alert("You do not have the access!")
         }
-        document.getElementById('loading').className = "overlay"
-        const data = {
-            pid: item.pid,
-        }
-        const JSONdata = JSON.stringify(data)
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSONdata,
-        }
-        const response = await fetch('/api/deleteitem', options)
-        const result = await response.json()
-        document.getElementById('loading').className = "d-disabled overlay"
-        alert(`Query: ${result.data}`)
-        router.push({
-            pathname: '/admin',
-        })
     }
 
     const handleSubmit = async (event) => {
         event.preventDefault()
-        if (!event.target.cid.value || !event.target.name.value || !event.target.price.value || !event.target.description.value) { return false }
-        if (isNaN(event.target.cid.value) || isNaN(event.target.price.value)) {
-            console.log("isNaN")
-            return false;
-        }
-        if (!/^([A-z0-9 ]{1,63})$/.test(event.target.name.value)) {
-            console.log("Name not passing check:", event.target.name.value)
-            return false;
-        }
-        if (!/^([A-z0-9,. ]{1,254})$/.test(event.target.description.value)) {
-            console.log("description not passing check:", event.target.description.value)
-            return false
-        }
+        if (status === "authenticated" && session.user.role === "admin") {
+            if (!event.target.cid.value || !event.target.name.value || !event.target.price.value || !event.target.description.value) { return false }
+            if (isNaN(event.target.cid.value) || isNaN(event.target.price.value)) {
+                console.log("isNaN")
+                return false;
+            }
+            if (!/^([A-z0-9 ]{1,63})$/.test(event.target.name.value)) {
+                console.log("Name not passing check:", event.target.name.value)
+                return false;
+            }
+            if (!/^([A-z0-9,. ]{1,254})$/.test(event.target.description.value)) {
+                console.log("description not passing check:", event.target.description.value)
+                return false
+            }
 
-        //loading
-        document.getElementById('loading').className = "overlay"
+            //loading
+            document.getElementById('loading').className = "overlay"
 
-        const formData = {}
-        formData["cid"] = event.target.cid.value
-        formData["pid"] = item.pid
-        formData["name"] = event.target.name.value
-        formData["price"] = event.target.price.value
-        formData["description"] = event.target.description.value
-        if (!newimage) {
-            formData["image"] = item.image
-        } else {
-            const cloudinaryUpload = new FormData();
-            cloudinaryUpload.append('file', newimage);
-            cloudinaryUpload.append('upload_preset', 'npes3rxr');
-            const data = await fetch('https://api.cloudinary.com/v1_1/da6zpc6dm/image/upload', {
+            const formData = {}
+            formData["cid"] = event.target.cid.value
+            formData["pid"] = item.pid
+            formData["name"] = event.target.name.value
+            formData["price"] = event.target.price.value
+            formData["description"] = event.target.description.value
+            if (!newimage) {
+                formData["image"] = item.image
+            } else {
+                const cloudinaryUpload = new FormData();
+                cloudinaryUpload.append('file', newimage);
+                cloudinaryUpload.append('upload_preset', 'npes3rxr');
+                const data = await fetch('https://api.cloudinary.com/v1_1/da6zpc6dm/image/upload', {
+                    method: 'POST',
+                    credentials: "same-origin",
+                    body: cloudinaryUpload
+                }).then(r => r.json());
+                formData["image"] = data.secure_url
+            }
+            const options = {
                 method: 'POST',
-                body: cloudinaryUpload
-            }).then(r => r.json());
-            formData["image"] = data.secure_url
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(formData)
+            }
+            const response = await fetch('/api/edititem', options)
+            const result = await response.json()
+            document.getElementById('loading').className = "d-disabled overlay"
+            alert(`Query: ${result.data}`)
+            router.push({
+                pathname: '/admin',
+            })
+        } else {
+            alert("You do not have the access!")
         }
-        const options = {
-            method: 'POST',
-            headers: {
-                'Content-Type': 'application/json',
-            },
-            body: JSON.stringify(formData)
-        }
-        const response = await fetch('/api/edititem', options)
-        const result = await response.json()
-        document.getElementById('loading').className = "d-disabled overlay"
-        alert(`Query: ${result.data}`)
-        router.push({
-            pathname: '/admin',
-        })
     }
 
     function dragOverHandler(e) {
@@ -110,6 +121,8 @@ function Item({ item }) {
                     document.getElementById('product-image').srcset = ""
                     document.getElementById('product-image').src = fileURL
                     setNewimage(file)
+                } else {
+                    alert("Wrong file!")
                 }
             }
         }
