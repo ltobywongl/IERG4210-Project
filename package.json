@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "ssl": "next start -p 80 | local-ssl-proxy --key key.pem --cert certificate.pem --source 443 --target 80"
+    "ssl": "next start -p 80 & local-ssl-proxy --key key.pem --cert certificate.pem --source 443 --target 80"
   },
   "dependencies": {
     "@next/font": "13.1.6",

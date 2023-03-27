@@ -14,12 +14,14 @@ export const authOptions = {
         password: { label: "Password", type: "password" }
       },
       async authorize(credentials) {
-        const res = await fetch(`/api/login`, {
+        console.log(JSON.stringify(credentials))
+        const res = await fetch(`http://s59.ierg4210.ie.cuhk.edu.hk/api/login`, {
           method: 'POST',
           body: JSON.stringify(credentials),
           headers: { "Content-Type": "application/json" }
         })
         const user = await res.json()
+        console.log(JSON.stringify(user))
 
         if (res.ok && user) {
           return user
