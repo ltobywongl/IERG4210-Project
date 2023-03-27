@@ -9,7 +9,7 @@ import Row from 'react-bootstrap/Row';
 import { useRouter } from 'next/router'
 import { useState } from 'react';
 import { useSession } from "next-auth/react"
-axios.defaults.baseURL = 'https://localhost:80';
+axios.defaults.baseURL = 'https://secure.s59.ierg4210.ie.cuhk.edu.hk/';
 
 function Item({ item }) {
     const router = useRouter()

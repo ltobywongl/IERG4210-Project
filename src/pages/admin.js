@@ -8,7 +8,7 @@ import Button from 'react-bootstrap/Button';
 import axios from 'axios';
 import Image from 'react-bootstrap/Image';
 import { useSession } from "next-auth/react"
-axios.defaults.baseURL = 'https://localhost:80';
+axios.defaults.baseURL = 'https://secure.s59.ierg4210.ie.cuhk.edu.hk/';
 
 const inter = Inter({ subsets: ['latin'] })
 
