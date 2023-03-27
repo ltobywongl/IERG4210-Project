@@ -4,7 +4,7 @@ import Head from 'next/head'
 import axios from 'axios'
 import CardGroup from 'react-bootstrap/CardGroup';
 import ItemCard from '@/Fragments/itemcard';
-axios.defaults.baseURL = 'http://localhost:80';
+axios.defaults.baseURL = 'https://localhost:80';
 
 const dict = {
     "cate-pcnh": "Personal Care & Health",

@@ -6,7 +6,7 @@ import { Button, Col, Container, Row } from "react-bootstrap"
 import Card from 'react-bootstrap/Card'
 import axios from 'axios'
 import { itemListContext } from '@/lib/context'
-axios.defaults.baseURL = 'http://localhost:80';
+axios.defaults.baseURL = 'https://localhost:80';
 
 const dict = {
     "cate-pcnh": "Personal Care & Health",
