@@ -16,7 +16,7 @@ export default function Chpwd() {
                     email: session.user.name,
                     password: e.target.oldPassword.value
                 }
-                const res = await fetch(`http://localhost/api/login`, {
+                const res = await fetch(`/api/login`, {
                     method: 'POST',
                     body: JSON.stringify(credentials),
                     headers: { "Content-Type": "application/json" }
@@ -32,7 +32,7 @@ export default function Chpwd() {
                                 document.getElementById('submitButton').disabled = true;
                                 credentials.id = user.id
                                 credentials.newPassword = e.target.password.value
-                                const res = await fetch(`http://localhost/api/chpwd`, {
+                                const res = await fetch(`/api/chpwd`, {
                                     method: 'POST',
                                     body: JSON.stringify(credentials),
                                     headers: { "Content-Type": "application/json" }
