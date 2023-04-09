@@ -40,7 +40,7 @@ export default function ItemCard({ pid }) {
     }
 
     const handleChange = (e) => {
-        setCount(e.target.value)
+        if (!isNaN(e.target.value) && e.target.value > 0) setCount(e.target.value)
     }
 
     if (!isNaN(pid)) {
