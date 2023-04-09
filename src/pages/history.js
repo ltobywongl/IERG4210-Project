@@ -25,7 +25,7 @@ function History() {
     if (isLoading || !orderList || status !== "authenticated") return (
         <>
             <Head>
-                <title>Shopping | Admin</title>
+                <title>Shopping | History</title>
                 <meta name="description" content="For CUHK IERG4210, studentID: 1155159363" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
