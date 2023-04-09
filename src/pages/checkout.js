@@ -23,6 +23,26 @@ export default function CartList() {
 
     if (isLoading || Object.keys(itemList).length === 0) return <span className="dropdown-item">Empty...</span>
 
+    if (status !== "authenticated") return (
+        <>
+        <Head>
+                <title>Shopping</title>
+                <meta name="description" content="For CUHK IERG4210, studentID: 1155159363" />
+                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
+            <main className="body">
+                <Navigation allowCart={false} />
+                <div className='page'>
+                    <div className="hierarchicalNav">
+                        <span className="nav-link underline">Checkout</span>
+                    </div>
+                    <h1 className='h1'><b>Please Login To Checkout!</b></h1>
+                </div>
+            </main>
+        </>
+    )
+
     let totalAmount = 0
     let itemsP = []
     let itemsS = []
