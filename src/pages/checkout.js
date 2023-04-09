@@ -33,7 +33,6 @@ export default function CartList() {
                 <meta name="description" content="For CUHK IERG4210, studentID: 1155159363" />
                 <meta name="viewport" content="width=device-width, initial-scale=1" />
                 <link rel="icon" href="/favicon.ico" />
-                <script src={`https://www.paypal.com/sdk/js?client-id=${process.env.CLIENT_ID}`} />
             </Head>
             <main className="body">
                 <Navigation allowCart={false} />
@@ -92,7 +91,7 @@ export default function CartList() {
                                     body: JSON.stringify({
                                         orderId: data.orderID,
                                         userId: session.user.id,
-                                        items: JSON.stringify({details: itemsS}),
+                                        items: JSON.stringify({ details: itemsS }),
                                         amount: totalAmount
                                     }),
                                     headers: { "Content-Type": "application/json" },
@@ -100,6 +99,9 @@ export default function CartList() {
                                 setItemList({})
                                 localStorage.clear();
                                 return router.push('/')
+                            }}
+                            options={{
+                                clientId: process.env.CLIENT_ID
                             }}
                         />
                     </div>
