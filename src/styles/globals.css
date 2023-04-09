@@ -299,6 +299,11 @@ input {
   margin-top: 24px;
 }
 
+.center-div {
+  display: flex;
+  justify-content: center;
+}
+
 .submitButton {
   width: 70%;
   height: 40px;

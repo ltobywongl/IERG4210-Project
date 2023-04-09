@@ -11,10 +11,10 @@ import { useSession } from "next-auth/react"
 
 const inter = Inter({ subsets: ['latin'] })
 
-function Admin({ items }) {
+function Admin({ items, orders }) {
     const { data: session, status } = useSession()
     const router = useRouter()
-    if (items === undefined) return
+    if (!items || !orders) return
 
     const handleNewProd = async (event) => {
         event.preventDefault()
@@ -34,6 +34,17 @@ function Admin({ items }) {
         }
     }
 
+    const handleView = (tmp) => {
+        if (tmp === 1) {
+            document.getElementById('orders').className = ''
+            document.getElementById('products').className = 'd-none'
+        } else {
+            document.getElementById('orders').className = 'd-none'
+            document.getElementById('products').className = ''
+        }
+        return true
+    }
+
     return (
         <>
             <Head>
@@ -51,51 +62,101 @@ function Admin({ items }) {
                         <span className="nav-link underline">Admin</span>
                     </div>
                     <h1 className='h1'><b>Admin Panel</b></h1>
-                    <Button variant='primary' onClick={handleNewProd}>Create New Product</Button>
-                    <Table striped bordered hover>
-                        <thead>
-                            <tr>
-                                <th>Action</th>
-                                <th>#PID</th>
-                                <th>CID</th>
-                                <th>Name</th>
-                                <th>Price</th>
-                                <th>description</th>
-                                <th>Image</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            {
-                                items.map((item, i) => {
-                                    return (
-                                        <tr key={"detail " + i}>
-                                            <td className='wordbreak'>
-                                                <Link className="nav-link underline" href={"/item/edit/" + item.pid}>Edit</Link>
-                                            </td>
-                                            <td className='wordbreak'>
-                                                {item.pid}
-                                            </td>
-                                            <td className='wordbreak'>
-                                                {item.cid}
-                                            </td>
-                                            <td className='wordbreak'>
-                                                {item.name}
-                                            </td>
-                                            <td className='wordbreak'>
-                                                {item.price}
-                                            </td>
-                                            <td className='wordbreak'>
-                                                {item.description}
-                                            </td>
-                                            <td className='wordbreak'>
-                                                <Image src={`${item.image}`} width={100} alt="logo"></Image>
-                                            </td>
-                                        </tr>
-                                    )
-                                })
-                            }
-                        </tbody>
-                    </Table>
+                    <div className='center-div gap-2'>
+                        <Button variant='warning' onClick={() => handleView(1)}>Orders</Button>
+                        <Button variant='warning' onClick={() => handleView(2)}>Products</Button>
+                    </div>
+                    <hr />
+                    <div id='orders' className='d-none'>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Order ID</th>
+                                    <th>User ID</th>
+                                    <th>Items</th>
+                                    <th>$Amount</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    orders.map((details, i) => {
+                                        return (
+                                            <tr key={"detail " + i}>
+                                                <td className='wordbreak'>
+                                                    {details.orderid}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {details.userid}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {
+                                                        JSON.parse(details.items).details.map((item, j) => {
+                                                            return (
+                                                                <p key={j}>
+                                                                    <b>{item.name}</b>,<br />
+                                                                    Price: {item.price} Quantity: {item.quantity}
+                                                                </p>
+                                                            )
+                                                        })
+                                                    }
+                                                </td >
+                                                <td className='wordbreak'>
+                                                    ${details.amount}
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
+                    <div id='products' className='d-none'>
+                        <Button variant='primary' onClick={handleNewProd}>Create New Product</Button>
+                        <Table striped bordered hover>
+                            <thead>
+                                <tr>
+                                    <th>Action</th>
+                                    <th>#PID</th>
+                                    <th>CID</th>
+                                    <th>Name</th>
+                                    <th>Price</th>
+                                    <th>description</th>
+                                    <th>Image</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {
+                                    items.map((item, i) => {
+                                        return (
+                                            <tr key={"detail " + i}>
+                                                <td className='wordbreak'>
+                                                    <Link className="nav-link underline" href={"/item/edit/" + item.pid}>Edit</Link>
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {item.pid}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {item.cid}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {item.name}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {item.price}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    {item.description}
+                                                </td>
+                                                <td className='wordbreak'>
+                                                    <Image src={`${item.image}`} width={100} alt="logo"></Image>
+                                                </td>
+                                            </tr>
+                                        )
+                                    })
+                                }
+                            </tbody>
+                        </Table>
+                    </div>
                 </div>
             </main >
         </>
@@ -105,18 +166,16 @@ function Admin({ items }) {
 export async function getServerSideProps() {
     try {
         const response = await axios.get(`/api/getproducts`)
+        const order_response = await axios.get(`/api/get-orders`)
         return {
             props: {
-                items: response.data
+                items: response.data,
+                orders: order_response.data,
             },
         }
     } catch (e) {
         console.log('warning getting api response:', e)
-        return {
-            props: {
-                items: {}
-            }
-        }
+        return {}
     }
 }
 

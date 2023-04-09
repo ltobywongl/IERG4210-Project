@@ -29,9 +29,12 @@ export default function Navigation({ allowCart }) {
                         <Nav>
                             {
                                 status === "authenticated" ?
-                                    <NavDropdown title={session.user.name} id="collasible-nav-dropdown">
-                                        <Link className="dropdown-item" href="/chpwd">Change Password</Link>
-                                    </NavDropdown> : null
+                                    <>
+                                        <NavDropdown title={session.user.name} id="collasible-nav-dropdown">
+                                            <Link className="dropdown-item" href="/chpwd">Change Password</Link>
+                                            <Link className="dropdown-item" href="/history">Order History</Link>
+                                        </NavDropdown>
+                                    </> : null
                             }
                             {
                                 status === "authenticated" ? <span className='nav-link click' onClick={() => signOut()}>Sign out</span> : <span className='nav-link click' onClick={() => signIn('Email')}>Sign in</span>

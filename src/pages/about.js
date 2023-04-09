@@ -21,7 +21,7 @@ export default function About() {
                 <h2><b>Shopping Site</b></h2>
                 <h3>by 1155159363</h3>
                 <h3>Built with Next.js</h3>
-                <h3>Phase 4</h3>
+                <h3>Phase 5</h3>
             </div >
         </>
     )
