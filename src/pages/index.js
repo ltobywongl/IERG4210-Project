@@ -41,9 +41,8 @@ export default function Home() {
 
   const onScroll = () => {
     if (data) {
-      let docHeight = getDocHeight()
-      const { scrollY, innerHeight } = window
-      if (scrollY + innerHeight === docHeight) {
+      const bottom = Math.ceil(window.innerHeight + window.scrollY) >= document.documentElement.scrollHeight
+      if (bottom) {
         addToList(data)
       }
     }
